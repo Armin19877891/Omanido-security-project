@@ -3,6 +3,10 @@
 Deze repository bevat de broncode voor een educatieve webapplicatie die is ontworpen om studenten te leren over webbeveiligingskwetsbaarheden en beste praktijken voor veilig programmeren. De applicatie simuleert een bankwebsite met verschillende opzettelijke beveiligingsfouten, wat een praktische leerervaring biedt voor onderwerpen zoals SQL-injectie, cross-site scripting (XSS), datavalidatie, cryptografie, gebroken toegangscontrole en meer. Studenten zullen deze kwetsbaarheden onderzoeken, misbruiken en beveiligen als onderdeel van hun cursuswerk.
 
 
+# BELANGRIJK
+Dit is een bewerkte versie van dat oorspronkelijke concept, waarin ik probeer de beveiliging van deze webapplicatie te verbeteren.
+
+
 ## Installatie van Docker:
 
 1. Zorg ervoor dat Docker is geïnstalleerd op je systeem.
