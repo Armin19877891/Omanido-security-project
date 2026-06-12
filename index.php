@@ -2,26 +2,26 @@
 session_start();
 include 'includes/db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//Tables aanmaken
+include 'includes/userTable.php';
+include 'includes/transactionTable.php';
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // SAFE: prepared statement
+    // Gebruik prepared statement
     $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute([$username]);
     $user = $stmt->fetch();
 
-    // password check (works with hashed passwords from register)
     if ($user && password_verify($password, $user['password'])) {
-
         $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['username'] = $username;
         $_SESSION['user'] = $user;
 
-        header("Location: dashboard.php");
+        header("location: dashboard.php");
         exit;
-
     } else {
         $error = "Gebruikersnaam of wachtwoord is onjuist";
     }
@@ -29,42 +29,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omanido</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-100">
+<?php include 'includes/header.php'; ?>
 
 <div class="container mx-auto mt-20 p-6 bg-white max-w-sm shadow-md rounded-md">
+    <div class="flex justify-center">
+        <img src="img/Omanido1.png" alt="Omanido Logo" class="mb-6 w-1/2">
+    </div>
+    <h2 class="text-lg text-center font-bold mb-6">Inloggen bij Omanido</h2>
 
-    <h2 class="text-lg text-center font-bold mb-6">Inloggen</h2>
+```
+<?php if (isset($error)): ?>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <?= $error ?>
+    </div>
+<?php endif; ?>
 
-    <?php if (isset($error)): ?>
-        <div class="bg-red-100 text-red-700 p-3 mb-4 rounded">
-            <?= $error ?>
-        </div>
-    <?php endif; ?>
+<form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div class="mb-4">
+        <label class="block text-sm font-medium">Gebruikersnaam:</label>
+        <input type="text" name="username" class="w-full border rounded px-3 py-2">
+    </div>
 
-    <form method="post">
+    <div class="mb-6">
+        <label class="block text-sm font-medium">Wachtwoord:</label>
+        <input type="password" name="password" class="w-full border rounded px-3 py-2">
+    </div>
 
-        <input type="text" name="username" placeholder="Gebruikersnaam"
-               class="w-full border p-2 mb-3">
+    <input type="submit" value="Inloggen" class="w-full bg-blue-600 text-white py-2 rounded">
+</form>
 
-        <input type="password" name="password" placeholder="Wachtwoord"
-               class="w-full border p-2 mb-3">
-
-        <button class="w-full bg-blue-600 text-white p-2">
-            Login
-        </button>
-
-    </form>
-
-    <a href="register.php" class="block text-center mt-4 text-blue-600">
-        Register
-    </a>
+<a href="register.php" class="block text-center text-blue-600 mt-4">
+    Nog geen account? Registreer hier
+</a>
+```
 
 </div>
 
