@@ -1,12 +1,12 @@
 <?php
-// PDO db connection
-$host = 'db';  // Dit moet overeenkomen met de servicenaam van MySQL in docker-compose.yml
-$db   = 'mydb'; // De naam van je database
-$user = 'user'; // Je MySQL-gebruikersnaam
-$pass = 'test'; // Je MySQL-wachtwoord
+$host = 'db';
+$db   = 'mydb';
+$user = 'user';
+$pass = 'test';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -15,7 +15,7 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
 }
 ?>
