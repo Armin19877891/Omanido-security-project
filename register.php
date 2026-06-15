@@ -44,13 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if (isset($error)): ?>
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Fout!</strong>
-                <span class="block sm:inline"><?= $error ?></span>
+                <span class="block sm:inline"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></span>
             </div>
         <?php endif; ?>
         <?php if (isset($success)): ?>
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Gelukt!</strong>
-                <span class="block sm:inline"><?= $success ?></span>
+                <span class="block sm:inline"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></span>
             </div>
         <?php endif; ?>
         <form action="<? echo htmlspecialchars($_SERVER["PHP_SELF"]);  ?>" method="post">
