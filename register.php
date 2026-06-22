@@ -7,12 +7,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $passwordcheck = $_POST['passwordcheck'];
 
-    if ($password == $passwordcheck) {
+    if ($password == $passwordcheck && strlen($password) >= 12) {
         $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
         $stmt->execute([$username]);
         if ($stmt->rowCount() == 0) {
             $stmt = $pdo->prepare("INSERT INTO user (username, password, balance, isAdmin) VALUES (?, ?, 100, 0)");
-            $stmt->execute([$username, $password]);
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->execute([$username, $hash]);
             $success = "Je account is aangemaakt, je kunt nu inloggen";
         } else {
             $error = "Deze gebruikersnaam is al in gebruik";

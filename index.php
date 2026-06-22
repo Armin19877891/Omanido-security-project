@@ -13,8 +13,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Beveiligd met prepared statements tegen SQL-injecties
-    $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ? AND password = ?");
-    $stmt->execute([$username, $password]);
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
+    $stmt->execute([$username]);
     $user = $stmt->fetch();
 
     // Controleer of er een rij is gevonden
