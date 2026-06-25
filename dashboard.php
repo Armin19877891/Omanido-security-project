@@ -10,8 +10,18 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true){
 // als button is ingedrukt
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $ontvanger = $_POST['ontvanger'];
-    $bedrag = $_POST['bedrag'];
+    $bedrag = trim($_POST['bedrag']);
 
+    if (!is_numeric($bedrag)) {
+        $error = "Voer een geldig numeriek bedrag in";
+    } else {
+        $bedrag = round((float)$bedrag,2);
+        if ($bedrag <= 0) {
+            $error = "Het bedrag moet groter zijn dan €0,00";
+        }
+    }
+
+    if(!isset($error)) {
     // Controleer of de ontvanger bestaat
     $stmt = $pdo->prepare("SELECT * FROM user WHERE username = ?");
     $stmt->execute([$ontvanger]);
@@ -56,6 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $error = "Deze gebruiker bestaat niet";
     }
 
+    }
 }
 
 include 'includes/db.php';
