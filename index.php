@@ -18,7 +18,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $stmt->fetch();
 
     // Controleer of er een rij is gevonden
-    if($stmt->rowCount() > 0) {
+    if($stmt->rowCount() > 0 && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
         // Gebruiker is ingelogd
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
