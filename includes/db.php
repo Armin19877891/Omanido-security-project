@@ -16,6 +16,8 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    echo "<h1>Database error</h1>";
+    echo "<pre>" . $e->getMessage() . "</pre>";
+    exit;
 }
 ?>
