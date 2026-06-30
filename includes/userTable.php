@@ -15,10 +15,10 @@ if ($checkTable->rowCount() == 0) {
     // Voeg de standaardgebruikers toe
     $insertUsersQuery = "
     INSERT INTO `user` (`id`, `username`, `password`, `balance`, `isAdmin`) VALUES
-    (1, 'Admin', 'AlfaBankAdminAccount', 1000.00, 1),
-    (2, 'FerryKuhlman', '12345678', 1255.36, 0),
-    (5, 'Han2002', 'password', 23424.84, 0),
-    (6, 'RoyBos', 'qwerty', 9.23, 0);
+    (1, 'Admin', '$2y$12$khA8mmUuXL4ZR6D074ITcuZpWHLxevLC39qXFkqWoyUhwHkNGzHfq', 1000.00, 1),
+    (2, 'FerryKuhlman', '$2y$12$AsmvAmCAvPu5trTkkn1frOCzFUKoiR1558Nc5c1W1NT3LEKGyAD.2', 1255.36, 0),
+    (5, 'Han2002', '$2y$12$uJSusvjgvfRRtgYtqusLVuH.h7/3g.N/OCi7I2WX9xjIVfPnbiOCa', 23424.84, 0),
+    (6, 'RoyBos', '$2y$12$v8qiKf5LIZehI98iKiYDqeRczOFhQgoB5yhm0wDFJxaMOeesOTt/O', 9.23, 0);
     ";
 
     // Voer de SQL-query uit om de gebruikers toe te voegen
